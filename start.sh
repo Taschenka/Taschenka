@@ -6,3 +6,5 @@ cd ./Api
 ./build.sh
 ./start.sh
 cd ..
+cd ./Web
+ng serve

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todosapi-deployment
+spec:
+  selector:
+    matchLabels:
+      app: todosapi
+  template:
+    metadata:
+      labels:
+        app: todosapi
+    spec:
+      containers:
+        - name: todosapi
+          image: todosapi:latest
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80
+          env:
+            - name: MongoDbSettings__Host
+              value: mongodb-service
+            - name: MongoDbSettings__Port
+              value: "27017"
+            - name: MongoDbSettings__User
+              value: mongoadmin

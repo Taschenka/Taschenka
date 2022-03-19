@@ -1,0 +1,1 @@
+docker run -d --rm --name todosapi -p 5210:80 -e MongoDbSettings:Host=mongo -e MongoDbSettings:Password=mongoadminpassword --network=todos-network todosapi:latest

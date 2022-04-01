@@ -1,0 +1,30 @@
+version: '3'
+networks:
+  todos-network:
+volumes:
+  mongodbdata:
+services:
+  database:
+    image: mongo:latest
+    volumes:
+      - mongodbdata:/data/db
+    networks:
+      - todos-network
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD
+  api:
+    build: ./Api/src
+    networks:
+      - todos-network
+    environment:
+      - MongoDbSettings:Host
+      - MongoDbSettings:Password
+  web:
+    build: ./Web/src
+    volumes:
+      - ./Web/conf/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - 8080:80
+    networks:
+      - todos-network

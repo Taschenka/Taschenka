@@ -14,7 +14,7 @@ import { Injectable, Inject, Optional, InjectionToken } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
 
 export module todos {
-  export const API_BASE_URL = new InjectionToken<string>('http://localhost:5210');
+  export const API_BASE_URL = new InjectionToken<string>('http://localhost');
 
   @Injectable()
   export class Client {

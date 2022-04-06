@@ -23,12 +23,12 @@ export class AppComponent {
   }
 
   createTodo(): void {
-    const dialogRef = this.dialog.open(CreateTodoDialog, {
-      width: '384px',
-    });
+    const dialogRef = this.dialog.open(CreateTodoDialog);
 
     dialogRef.afterClosed().subscribe((todo: Todos.ICreateTodoDto) => {
-      console.log(todo);
+      if (todo) {
+        console.log(todo);
+      }
     });
   }
 
@@ -37,6 +37,7 @@ export class AppComponent {
 @Component({
   selector: 'create-todo-dialog',
   templateUrl: 'create-todo-dialog.html',
+  styleUrls: ['./todo-dialog.css']
 })
 export class CreateTodoDialog {
   todo: Todos.CreateTodoDto;

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { todos as Todos } from "../apis/todosApi";
+import { Todos } from "../apis/todosApi";
 
 @Component({
   selector: 'app-root',
@@ -8,14 +8,19 @@ import { todos as Todos } from "../apis/todosApi";
 })
 export class AppComponent {
   title = 'Taschenka';
+  todosClient: Todos.Client;
 
   public todos?: Todos.IGetTodoDto[];
   constructor(todosClient: Todos.Client) {
-    todosClient.todosAll().subscribe(
-      result => {
+    this.todosClient = todosClient;
+  }
+
+  ngOnInit() {
+    this.todosClient.todosAll().subscribe({
+      next: result => {
         this.todos = result;
       },
-      error => console.error(error)
-    );
+      error: console.error
+    });
   }
 }

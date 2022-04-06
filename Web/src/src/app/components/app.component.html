@@ -1,20 +1,33 @@
-<h1 id="tableLabel">Todos</h1>
-<p *ngIf="!todos"><em>Loading...</em></p>
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="todos">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Deadline</th>
-      <th>IsDone</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let todo of todos">
-      <td>{{ todo.name }}</td>
-      <td>{{ todo.description }}</td>
-      <td>{{ todo.deadline }}</td>
-      <td>{{ todo.isDone }}</td>
-    </tr>
-  </tbody>
-</table>
+<header class="header">
+  <h1>Taschenka</h1>
+</header>
+<article>
+  <div *ngIf="!todos">
+    <mat-card class="card center">
+      <mat-card-header>
+        <mat-card-title>Loading...</mat-card-title>
+      </mat-card-header>
+    </mat-card>
+    <br>
+  </div>
+  <div *ngFor="let todo of todos">
+    <mat-card class="card center">
+      <mat-card-header>
+        <mat-card-title>{{ todo.name }}</mat-card-title>
+        <mat-card-subtitle>{{ todo.deadline | date }}</mat-card-subtitle>
+        <mat-checkbox [(ngModel)]="todo.isDone"></mat-checkbox>
+      </mat-card-header>
+      <mat-card-content>
+        {{ todo.description }}
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>EDIT</button>
+        <button mat-button>DELETE</button>
+      </mat-card-actions>
+    </mat-card>
+    <br>
+  </div>
+</article>
+<footer>
+
+</footer>

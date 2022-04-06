@@ -4,7 +4,14 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app.component';
-import { todos } from "./apis/todosApi";
+import { Todos } from "./apis/todosApi";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { FormsModule } from '@angular/forms';
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -14,9 +21,16 @@ import { todos } from "./apis/todosApi";
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+
+    FormsModule,
+
+    MatButtonModule,
+    MatCardModule,
+    MatCheckboxModule,
   ],
   providers: [
-    todos.Client
+    Todos.Client
   ],
   bootstrap: [AppComponent]
 })

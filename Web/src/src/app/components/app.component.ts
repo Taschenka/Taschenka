@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Todos } from "../apis/todosApi";
 
 @Component({
@@ -8,12 +9,9 @@ import { Todos } from "../apis/todosApi";
 })
 export class AppComponent {
   title = 'Taschenka';
-  todosClient: Todos.Client;
 
   public todos?: Todos.IGetTodoDto[];
-  constructor(todosClient: Todos.Client) {
-    this.todosClient = todosClient;
-  }
+  constructor(public todosClient: Todos.Client, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.todosClient.todosAll().subscribe({
@@ -22,5 +20,39 @@ export class AppComponent {
       },
       error: console.error
     });
+  }
+
+  createTodo(): void {
+    const dialogRef = this.dialog.open(CreateTodoDialog, {
+      width: '384px',
+    });
+
+    dialogRef.afterClosed().subscribe((todo: Todos.ICreateTodoDto) => {
+      console.log(todo);
+    });
+  }
+
+}
+
+@Component({
+  selector: 'create-todo-dialog',
+  templateUrl: 'create-todo-dialog.html',
+})
+export class CreateTodoDialog {
+  todo: Todos.CreateTodoDto;
+
+  constructor(
+    public dialogRef: MatDialogRef<CreateTodoDialog>
+  ) {
+    this.todo = new Todos.CreateTodoDto({
+      name: "",
+      description: "",
+      deadline: new Date(Date.now()),
+      isDone: false,
+    })
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

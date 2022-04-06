@@ -14,7 +14,7 @@ import { Injectable, Inject, Optional, InjectionToken } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
 
 export module todos {
-  export const API_BASE_URL = new InjectionToken<string>('http://localhost');
+  export const API_BASE_URL = new InjectionToken<string>('http://localhost:8080');
 
   @Injectable()
   export class Client {
@@ -31,7 +31,7 @@ export module todos {
      * @return Success
      */
     todosAll(): Observable<GetTodoDto[]> {
-      let url_ = this.baseUrl + "/Todos";
+      let url_ = this.baseUrl + "/todos/";
       url_ = url_.replace(/[?&]$/, "");
 
       let options_: any = {
@@ -95,7 +95,7 @@ export module todos {
      * @return Success
      */
     todosPOST(body: CreateTodoDto | undefined): Observable<GetTodoDto> {
-      let url_ = this.baseUrl + "/Todos";
+      let url_ = this.baseUrl + "/todos/";
       url_ = url_.replace(/[?&]$/, "");
 
       const content_ = JSON.stringify(body);
@@ -150,7 +150,7 @@ export module todos {
      * @return Success
      */
     todosGET(id: string): Observable<GetTodoDto> {
-      let url_ = this.baseUrl + "/Todos/{id}";
+      let url_ = this.baseUrl + "/todos/{id}";
       if (id === undefined || id === null)
         throw new Error("The parameter 'id' must be defined.");
       url_ = url_.replace("{id}", encodeURIComponent("" + id));
@@ -205,7 +205,7 @@ export module todos {
      * @return Success
      */
     todosPUT(id: string, body: UpdateTodoDto | undefined): Observable<void> {
-      let url_ = this.baseUrl + "/Todos/{id}";
+      let url_ = this.baseUrl + "/todos/{id}";
       if (id === undefined || id === null)
         throw new Error("The parameter 'id' must be defined.");
       url_ = url_.replace("{id}", encodeURIComponent("" + id));
@@ -259,7 +259,7 @@ export module todos {
      * @return Success
      */
     todosDELETE(id: string): Observable<void> {
-      let url_ = this.baseUrl + "/Todos/{id}";
+      let url_ = this.baseUrl + "/todos/{id}";
       if (id === undefined || id === null)
         throw new Error("The parameter 'id' must be defined.");
       url_ = url_.replace("{id}", encodeURIComponent("" + id));

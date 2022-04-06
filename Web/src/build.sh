@@ -1,1 +1,1 @@
-docker build -t tashcenka_web:latest .
+docker build -t taschenka_web:latest .

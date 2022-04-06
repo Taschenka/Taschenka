@@ -1,1 +1,1 @@
-docker build -t todosapi:latest .
+docker build -t taschenka_api:latest .

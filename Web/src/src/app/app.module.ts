@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent, CreateTodoDialog } from './components/app.component';
+import { AppComponent, CreateTodoDialog, EditTodoDialog } from './components/app.component';
 import { Todos } from "./apis/todosApi";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -24,6 +24,7 @@ import { MatInputModule } from '@angular/material/input';
   declarations: [
     AppComponent,
     CreateTodoDialog,
+    EditTodoDialog,
   ],
   imports: [
     BrowserModule,

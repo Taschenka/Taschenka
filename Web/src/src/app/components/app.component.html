@@ -21,8 +21,8 @@
         {{ todo.description }}
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button>EDIT</button>
-        <button mat-button>DELETE</button>
+        <button mat-button (click)="editTodo(todo)">EDIT</button>
+        <button mat-button (click)="deleteTodo(todo.id!)">DELETE</button>
       </mat-card-actions>
     </mat-card>
     <br>

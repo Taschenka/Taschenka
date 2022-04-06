@@ -1,5 +1,5 @@
 .header {
-    text-align:center
+    text-align: center
 }
 
 .center {
@@ -9,4 +9,10 @@
 
 .card {
     width: 512px;
+}
+
+.fab {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
 }

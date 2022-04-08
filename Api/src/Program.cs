@@ -46,7 +46,7 @@ builder.Services
         mongodbConnectionString: mongoDbSettings.ConnectionString,
         name: "mongodb",
         tags: new[] { Tags.Ready },
-        timeout: TimeSpan.FromSeconds(10)
+        timeout: TimeSpan.FromSeconds(1)
     );
 
 var app = builder.Build();

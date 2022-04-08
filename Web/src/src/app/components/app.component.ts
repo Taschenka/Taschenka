@@ -25,11 +25,16 @@ export class AppComponent {
   createTodo(): void {
     const dialogRef = this.dialog.open(CreateTodoDialog);
 
-    dialogRef.afterClosed().subscribe((todo: Todos.CreateTodoDto) => {
-      if (todo) {
-        console.log(todo);
-        this.todosClient.todosPOST(todo);
-        this.todos?.push(todo)
+    dialogRef.afterClosed().subscribe((requestTodo: Todos.CreateTodoDto) => {
+      if (requestTodo) {
+        console.log(requestTodo);
+        this.todosClient.todosPOST(requestTodo).subscribe({
+          next: (resultTodo: Todos.GetTodoDto) => {
+            console.log(resultTodo);
+            this.todos!.push(resultTodo);
+          },
+          error: console.error
+        });
       }
     });
   }
@@ -40,20 +45,26 @@ export class AppComponent {
     dialogRef.afterClosed().subscribe((updated: Todos.UpdateTodoDto) => {
       if (updated) {
         this.todosClient.todosPUT(todo.id!, updated).subscribe({
+          next: () => {
+            let index = this.todos!.findIndex(it => it.id == todo.id);
+            this.todos![index] = updated;
+          },
           error: console.error
         });
-        let index = this.todos!.findIndex(it => it.id == todo.id)
-        this.todos![index] = updated
       }
     });
   }
 
   deleteTodo(id: string) {
     this.todosClient.todosDELETE(id).subscribe({
+      next: () => {
+        let index = this.todos!.findIndex(it => it.id == id);
+        if (index != -1) {
+          this.todos!.splice(index, 1);
+        }
+      },
       error: console.error
     });
-    let index = this.todos!.findIndex(it => it.id == id)
-    this.todos?.splice(index, 1)
   }
 
 }

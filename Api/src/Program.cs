@@ -25,7 +25,7 @@ builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
     return new MongoClient(mongoDbSettings.ConnectionString);
 });
 
-builder.Services.AddSingleton<ITodosRepository, InMemoryTodosRepository>();
+builder.Services.AddSingleton<ITodosRepository, MongoDbTodosRepository>();
 builder.Services.AddSingleton<ITodosService, TodosService>();
 
 builder.Services.AddAutoMapper(typeof(TodoProfile));

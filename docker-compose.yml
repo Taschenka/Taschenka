@@ -11,15 +11,15 @@ services:
     networks:
       - todos-network
     environment:
-      - MONGO_INITDB_ROOT_USERNAME
-      - MONGO_INITDB_ROOT_PASSWORD
+      - MONGO_INITDB_ROOT_USERNAME=mongoadmin
+      - MONGO_INITDB_ROOT_PASSWORD=mongoadminpassword
   api:
     build: ./Api/src
     networks:
       - todos-network
     environment:
-      - MongoDbSettings:Host
-      - MongoDbSettings:Password
+      - MongoDbSettings:Host=database
+      - MongoDbSettings:Password=mongoadminpassword
   web:
     build: ./Web/src
     volumes:

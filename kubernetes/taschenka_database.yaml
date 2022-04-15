@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: taschenka-database-statefulset
+spec:
+  selector:
+    matchLabels:
+      app: taschenka-database
+  serviceName: taschenka-database
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: taschenka-database
+    spec:
+      containers:
+        - name: mongodb
+          image: mongo:5.0.7
+          ports:
+            - containerPort: 27017
+              name: web
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: "mongoadmin"
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: taschenka-secrets
+                  key: mongodb-password
+          volumeMounts:
+            - name: mongodbdata
+              mountPath: /data/db
+  volumeClaimTemplates:
+    - metadata:
+        name: mongodbdata
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: taschenka-database-service
+spec:
+  clusterIP: None
+  selector:
+    app: taschenka-database
+  ports:
+    - port: 27017
+      targetPort: 27017

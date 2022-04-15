@@ -1,10 +1,7 @@
-docker network create todos-network
-cd ./Database
-./start.sh
-cd ..
-cd ./Api
-./build.sh
-./start.sh
-cd ..
-cd ./Web
-ng serve
+#!/bin/bash
+
+kubectl create secret generic taschenka-secrets --from-literal=mongodb-password='mongoadminpassword'
+
+kubectl apply -f ./kubernetes/taschenka_api.yaml
+
+kubectl apply -f ./kubernetes/taschenka_database.yaml

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taschenka-web-deployment
+spec:
+  selector:
+    matchLabels:
+      app: taschenka-web
+  template:
+    metadata:
+      labels:
+        app: taschenka-web
+    spec:
+      containers:
+        - name: taschenka-web
+          image: melidon/taschenka_web:1.0.0
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: taschenka-web-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: taschenka-web
+  ports:
+    - port: 80
+      targetPort: 80

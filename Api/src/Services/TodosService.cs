@@ -26,7 +26,7 @@ public class TodosService : ITodosService
 
     public async Task<IEnumerable<GetTodoDto>> GetAllTodosAsync()
     {
-        _logger.LogDebug("GetAll has been called.");
+        _logger.LogInformation("GetAll has been called.");
 
         var todos = await _todosRepository.GetAllTodosAsync();
 
@@ -35,13 +35,13 @@ public class TodosService : ITodosService
 
     public async Task<GetTodoDto?> GetTodoByIdAsync(Guid id)
     {
-        _logger.LogDebug($"GetById has been called with id: {id}.");
+        _logger.LogInformation($"GetById has been called with id: {id}.");
 
         var todo = await _todosRepository.GetTodoByIdAsync(id);
 
         if (todo is null)
         {
-            _logger.LogDebug($"Todo not found with id: {id}.");
+            _logger.LogInformation($"Todo not found with id: {id}.");
         }
 
         return _mapper.Map<GetTodoDto?>(todo);
@@ -49,7 +49,7 @@ public class TodosService : ITodosService
 
     public async Task<GetTodoDto> CreateTodoAsync(CreateTodoDto todoDto)
     {
-        _logger.LogDebug($"CreateTodo has been called with todoDto: {todoDto}.");
+        _logger.LogInformation($"CreateTodo has been called with todoDto: {todoDto}.");
 
         var todo = _mapper.Map<Todo>(todoDto);
 
@@ -62,7 +62,7 @@ public class TodosService : ITodosService
 
     public async Task<bool> UpdateTodoAsync(Guid id, UpdateTodoDto todoDto)
     {
-        _logger.LogDebug($"UpdateTodo has been called with with id: {id} and todoDto: {todoDto}.");
+        _logger.LogInformation($"UpdateTodo has been called with with id: {id} and todoDto: {todoDto}.");
 
         var todo = _mapper.Map<Todo>(todoDto) with { Id = id };
 
@@ -70,7 +70,7 @@ public class TodosService : ITodosService
 
         if (!success)
         {
-            _logger.LogDebug($"Todo not found with id: {id}.");
+            _logger.LogInformation($"Todo not found with id: {id}.");
         }
 
         return success;
@@ -78,13 +78,13 @@ public class TodosService : ITodosService
 
     public async Task<bool> DeleteTodoAsync(Guid id)
     {
-        _logger.LogDebug($"DeleteTodo has been called with with id: {id}.");
+        _logger.LogInformation($"DeleteTodo has been called with with id: {id}.");
 
         var success = await _todosRepository.DeleteTodoAsync(id);
 
         if (!success)
         {
-            _logger.LogDebug($"Todo not found with id: {id}.");
+            _logger.LogInformation($"Todo not found with id: {id}.");
         }
 
         return success;

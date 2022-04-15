@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: taschenka-api
-          image: melidon/taschenka_api:1.0.1
+          image: melidon/taschenka_api:1.0.2
           resources:
             limits:
               memory: "128Mi"

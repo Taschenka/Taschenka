@@ -10,3 +10,6 @@ kubectl delete service taschenka-api-service
 
 kubectl delete deployment taschenka-web-deployment
 kubectl delete service taschenka-web-service
+
+helm uninstall ingress-nginx --namespace ingress-nginx
+kubectl delete ingress taschenka-ingress

@@ -8,7 +8,8 @@ kubectl apply -f ./kubernetes/taschenka_api.yaml
 
 kubectl apply -f ./kubernetes/taschenka_web.yaml
 
-helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace --set controller.setAsDefaultIngress=true
+helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace
+# --set controller.setAsDefaultIngress=true
 
 kubectl wait --namespace ingress-nginx --for=condition=ready pod --selector=app.kubernetes.io/component=controller --timeout=120s
 

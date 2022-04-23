@@ -27,7 +27,7 @@ kind: Service
 metadata:
   name: taschenka-web-service
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: taschenka-web
   ports:

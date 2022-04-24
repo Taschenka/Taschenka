@@ -2,14 +2,20 @@
 
 # Minikube
 
-minikube start --memory 4096 --cpus 4
+minikube start --memory 5120 --cpus 4
 
 # EFK
 
 minikube addons enable default-storageclass
 minikube addons enable storage-provisioner
 
-helm upgrade --wait --timeout=1200s --install --values ./kubernetes/elasticsearch_values.yaml helm-es-minikube elasticsearch --repo https://helm.elastic.co
+# TODO: Password
+
+helm upgrade --install elasticsearch elasticsearch --repo https://helm.elastic.co --values ./kubernetes/elasticsearch_values.yaml --wait --timeout=1200s
+
+helm upgrade --install fluentd fluentd --repo https://fluent.github.io/helm-charts --values ./kubernetes/fluentd_values.yaml --wait
+
+helm upgrade --install kibana kibana --repo https://helm.elastic.co --values ./kubernetes/kibana_values.yaml --wait
 
 # Taschenka
 

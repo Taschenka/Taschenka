@@ -9,7 +9,7 @@ minikube start --memory 5120 --cpus 4
 minikube addons enable default-storageclass
 minikube addons enable storage-provisioner
 
-# TODO: Password
+# TODO: Elasticsearch password
 
 helm upgrade --install elasticsearch elasticsearch --repo https://helm.elastic.co --values ./kubernetes/elasticsearch_values.yaml --wait --timeout=1200s
 

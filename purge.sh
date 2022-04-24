@@ -20,13 +20,15 @@ kubectl delete secret taschenka-secrets
 
 # EFK
 
-helm del kibana
+kubectl delete ingress kibana
 
-helm del fluentd
+helm delete kibana
 
-helm del elasticsearch
+helm delete fluentd
 
-# TODO: Password
+helm delete elasticsearch
+
+# TODO: Elasticsearch password
 
 minikube addons disable default-storageclass
 minikube addons disable storage-provisioner

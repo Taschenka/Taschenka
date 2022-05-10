@@ -16,6 +16,8 @@ kubectl delete deployment taschenka-api-deployment
 kubectl delete service taschenka-database-service
 kubectl delete statefulset taschenka-database-statefulset
 
+kubectl delete configmap taschenka-configmap
+
 kubectl delete secret taschenka-secrets
 
 # EFK

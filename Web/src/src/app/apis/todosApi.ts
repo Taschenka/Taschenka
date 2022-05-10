@@ -10,11 +10,11 @@
 
 import { mergeMap as _observableMergeMap, catchError as _observableCatch } from 'rxjs/operators';
 import { Observable, throwError as _observableThrow, of as _observableOf } from 'rxjs';
-import { Injectable, Inject, Optional, InjectionToken } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
+import { EnvironmentService } from '../services/environment.service';
 
 export module Todos {
-  export const API_BASE_URL = new InjectionToken<string>('http://localhost:8080');
 
   @Injectable()
   export class Client {
@@ -22,9 +22,9 @@ export module Todos {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+    constructor(@Inject(HttpClient) http: HttpClient, @Inject(EnvironmentService) environmentService: EnvironmentService) {
       this.http = http;
-      this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+      this.baseUrl = environmentService.apiUrl;
     }
 
     /**

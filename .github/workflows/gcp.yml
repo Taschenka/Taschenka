@@ -33,11 +33,11 @@ jobs:
         env:
           GIT_TAG: v1.2.0
         run: |-
-          docker tag $TASCHENKA_API:latest gcr.io/$PROJECT_ID/$TASCHENKA_API:latest
-          docker tag $TASCHENKA_API:latest gcr.io/$PROJECT_ID/$TASCHENKA_API:$GIT_TAG
-          docker push gcr.io/$PROJECT_ID/$TASCHENKA_API:latest
-          docker push gcr.io/$PROJECT_ID/$TASCHENKA_API:$GIT_TAG
-          docker tag $TASCHENKA_WEB:latest gcr.io/$PROJECT_ID/$TASCHENKA_WEB:latest
-          docker tag $TASCHENKA_WEB:latest gcr.io/$PROJECT_ID/$TASCHENKA_WEB:$GIT_TAG
-          docker push gcr.io/$PROJECT_ID/$TASCHENKA_WEB:latest
-          docker push gcr.io/$PROJECT_ID/$TASCHENKA_WEB:$GIT_TAG
+          docker tag $TASCHENKA_API:latest eu.gcr.io/$PROJECT_ID/$TASCHENKA_API:latest
+          docker tag $TASCHENKA_API:latest eu.gcr.io/$PROJECT_ID/$TASCHENKA_API:$GIT_TAG
+          docker push eu.gcr.io/$PROJECT_ID/$TASCHENKA_API:latest
+          docker push eu.gcr.io/$PROJECT_ID/$TASCHENKA_API:$GIT_TAG
+          docker tag $TASCHENKA_WEB:latest eu.gcr.io/$PROJECT_ID/$TASCHENKA_WEB:latest
+          docker tag $TASCHENKA_WEB:latest eu.gcr.io/$PROJECT_ID/$TASCHENKA_WEB:$GIT_TAG
+          docker push eu.gcr.io/$PROJECT_ID/$TASCHENKA_WEB:latest
+          docker push eu.gcr.io/$PROJECT_ID/$TASCHENKA_WEB:$GIT_TAG

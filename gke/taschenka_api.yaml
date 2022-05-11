@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taschenka-api-deployment
+spec:
+  selector:
+    matchLabels:
+      app: taschenka-api
+  template:
+    metadata:
+      labels:
+        app: taschenka-api
+    spec:
+      containers:
+        - name: taschenka-api
+          image: europe-central2-docker.pkg.dev/taschenka/images/taschenka_api:latest
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80
+          env:
+            - name: MongoDbSettings__Host
+              value: taschenka-database-service
+            - name: MongoDbSettings__Password
+              valueFrom:
+                secretKeyRef:
+                  name: taschenka-secrets
+                  key: mongodb-password
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 80
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: taschenka-api-service
+spec:
+  type: ClusterIP
+  selector:
+    app: taschenka-api
+  ports:
+    - port: 80
+      targetPort: 80

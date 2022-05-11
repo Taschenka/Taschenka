@@ -11,11 +11,14 @@ jobs:
       PROJECT_ID: taschenka
       TASCHENKA_API: taschenka_api
       TASCHENKA_WEB: taschenka_web
+      GKE_CLUSTER: taschenka
+      GKE_ZONE: europe-central2-b
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - uses: google-github-actions/setup-gcloud@main
+      - name: Setup Google Cloud CLI
+        uses: google-github-actions/setup-gcloud@main
         with:
           service_account_key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
           project_id: ${{ env.PROJECT_ID }}
@@ -60,3 +63,14 @@ jobs:
           docker tag $TASCHENKA_WEB:latest europe-central2-docker.pkg.dev/$PROJECT_ID/images/$TASCHENKA_WEB:$GIT_TAG
           docker push europe-central2-docker.pkg.dev/$PROJECT_ID/images/$TASCHENKA_WEB:latest
           docker push europe-central2-docker.pkg.dev/$PROJECT_ID/images/$TASCHENKA_WEB:$GIT_TAG
+
+      - name: Get GKE Credentials
+        run: |-
+          gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE --project $PROJECT_ID
+
+      - name: Deploy Images to GKE
+        run: |-
+          kubectl apply -f ./gke/taschenka_database.yaml
+          kubectl apply -f ./gke/taschenka_api.yaml
+          kubectl apply -f ./gke/taschenka_web.yaml
+          kubectl apply -f ./gke/taschenka_ingress.yaml

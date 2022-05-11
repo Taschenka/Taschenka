@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taschenka-web-deployment
+spec:
+  selector:
+    matchLabels:
+      app: taschenka-web
+  template:
+    metadata:
+      labels:
+        app: taschenka-web
+    spec:
+      containers:
+        - name: taschenka-web
+          image: europe-central2-docker.pkg.dev/taschenka/images/taschenka_web:latest
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: taschenka-configmap
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  [
+                    "/bin/sh",
+                    "-c",
+                    "envsubst < /usr/share/nginx/html/environment_token.js > /usr/share/nginx/html/environment.js",
+                  ]
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: taschenka-web-service
+spec:
+  type: ClusterIP
+  selector:
+    app: taschenka-web
+  ports:
+    - port: 80
+      targetPort: 80

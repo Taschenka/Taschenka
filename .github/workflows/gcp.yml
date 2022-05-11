@@ -27,11 +27,12 @@ jobs:
 
       - name: Configure Docker Client
         run: |-
-          gcloud auth configure-docker
+          gcloud auth configure-docker --quiet
+          gcloud auth configure-docker europe-central2-docker.pkg.dev --quiet
 
-      - name: Push Docker Images to GCR
+      - name: Push Docker Images to Container Registry
         env:
-          GIT_TAG: v1.2.0
+          GIT_TAG: v1.2.1
         run: |-
           docker tag $TASCHENKA_API:latest eu.gcr.io/$PROJECT_ID/$TASCHENKA_API:latest
           docker tag $TASCHENKA_API:latest eu.gcr.io/$PROJECT_ID/$TASCHENKA_API:$GIT_TAG
@@ -41,3 +42,16 @@ jobs:
           docker tag $TASCHENKA_WEB:latest eu.gcr.io/$PROJECT_ID/$TASCHENKA_WEB:$GIT_TAG
           docker push eu.gcr.io/$PROJECT_ID/$TASCHENKA_WEB:latest
           docker push eu.gcr.io/$PROJECT_ID/$TASCHENKA_WEB:$GIT_TAG
+
+      - name: Push Docker Images to Artifact Registry
+        env:
+          GIT_TAG: v1.2.1
+        run: |-
+          docker tag $TASCHENKA_API:latest europe-central2-docker.pkg.dev/$PROJECT_ID/$TASCHENKA_API:latest
+          docker tag $TASCHENKA_API:latest europe-central2-docker.pkg.dev/$PROJECT_ID/$TASCHENKA_API:$GIT_TAG
+          docker push europe-central2-docker.pkg.dev/$PROJECT_ID/$TASCHENKA_API:latest
+          docker push europe-central2-docker.pkg.dev/$PROJECT_ID/$TASCHENKA_API:$GIT_TAG
+          docker tag $TASCHENKA_WEB:latest europe-central2-docker.pkg.dev/$PROJECT_ID/$TASCHENKA_WEB:latest
+          docker tag $TASCHENKA_WEB:latest europe-central2-docker.pkg.dev/$PROJECT_ID/$TASCHENKA_WEB:$GIT_TAG
+          docker push europe-central2-docker.pkg.dev/$PROJECT_ID/$TASCHENKA_WEB:latest
+          docker push europe-central2-docker.pkg.dev/$PROJECT_ID/$TASCHENKA_WEB:$GIT_TAG

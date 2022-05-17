@@ -7,4 +7,5 @@ RUN npm run build --prod
 
 # stage 2
 FROM nginx:1.21
+EXPOSE 8080
 COPY --from=node /app/dist/taschenka /usr/share/nginx/html

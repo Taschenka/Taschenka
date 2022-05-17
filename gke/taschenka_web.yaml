@@ -14,12 +14,13 @@ spec:
       containers:
         - name: taschenka-web
           image: europe-central2-docker.pkg.dev/taschenka/images/taschenka_web:latest
+          imagePullPolicy: Always
           resources:
             limits:
               memory: "128Mi"
               cpu: "500m"
           ports:
-            - containerPort: 80
+            - containerPort: 8080
           envFrom:
             - configMapRef:
                 name: taschenka-configmap
@@ -44,4 +45,4 @@ spec:
     app: taschenka-web
   ports:
     - port: 80
-      targetPort: 80
+      targetPort: 8080

@@ -26,7 +26,7 @@ jobs:
       - name: Build Docker Images
         run: |-
           docker build -t $TASCHENKA_API:latest ./Api/src
-          docker build -t $TASCHENKA_WEB:latest ./Api/src
+          docker build -t $TASCHENKA_WEB:latest ./Web/src
 
       - name: Automatic Tagging of Releases
         id: increment-git-tag
@@ -37,19 +37,6 @@ jobs:
         run: |-
           gcloud auth configure-docker --quiet
           gcloud auth configure-docker europe-central2-docker.pkg.dev --quiet
-
-      - name: Push Docker Images to Container Registry
-        env:
-          GIT_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
-        run: |-
-          docker tag $TASCHENKA_API:latest eu.gcr.io/$PROJECT_ID/$TASCHENKA_API:latest
-          docker tag $TASCHENKA_API:latest eu.gcr.io/$PROJECT_ID/$TASCHENKA_API:$GIT_TAG
-          docker push eu.gcr.io/$PROJECT_ID/$TASCHENKA_API:latest
-          docker push eu.gcr.io/$PROJECT_ID/$TASCHENKA_API:$GIT_TAG
-          docker tag $TASCHENKA_WEB:latest eu.gcr.io/$PROJECT_ID/$TASCHENKA_WEB:latest
-          docker tag $TASCHENKA_WEB:latest eu.gcr.io/$PROJECT_ID/$TASCHENKA_WEB:$GIT_TAG
-          docker push eu.gcr.io/$PROJECT_ID/$TASCHENKA_WEB:latest
-          docker push eu.gcr.io/$PROJECT_ID/$TASCHENKA_WEB:$GIT_TAG
 
       - name: Push Docker Images to Artifact Registry
         env:

@@ -55,13 +55,6 @@ jobs:
         run: |-
           gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE --project $PROJECT_ID
 
-      - name: Deploy Images to GKE
-        run: |-
-          kubectl apply -f ./gke/taschenka_database.yaml
-          kubectl apply -f ./gke/taschenka_api.yaml
-          kubectl apply -f ./gke/taschenka_web.yaml
-          kubectl apply -f ./gke/taschenka_ingress.yaml
-
       - name: "Elasticsearch"
         uses: "deliverybot/helm3@v1"
         with:
@@ -91,3 +84,10 @@ jobs:
           token: "${{ github.token }}"
           value-files: "./kubernetes/kibana_values.yaml"
           repo: "https://helm.elastic.co"
+
+      - name: Deploy Images to GKE
+        run: |-
+          kubectl apply -f ./gke/taschenka_database.yaml
+          kubectl apply -f ./gke/taschenka_api.yaml
+          kubectl apply -f ./gke/taschenka_web.yaml
+          kubectl apply -f ./gke/taschenka_ingress.yaml

@@ -4,7 +4,7 @@ on:
   push:
     branches: [master]
 jobs:
-  build-push-gcr:
+  build-and-deploy:
     name: Build and Push to GCP
     runs-on: ubuntu-latest
     env:
@@ -61,3 +61,33 @@ jobs:
           kubectl apply -f ./gke/taschenka_api.yaml
           kubectl apply -f ./gke/taschenka_web.yaml
           kubectl apply -f ./gke/taschenka_ingress.yaml
+
+      - name: "Elasticsearch"
+        uses: "deliverybot/helm3@v1"
+        with:
+          release: "elasticsearch"
+          namespace: "default"
+          chart: "elasticsearch"
+          token: "${{ github.token }}"
+          value-files: "./kubernetes/elasticsearch_values.yaml"
+          repo: "https://helm.elastic.co"
+
+      - name: "Fluentd"
+        uses: "deliverybot/helm3@v1"
+        with:
+          release: "fluentd"
+          namespace: "default"
+          chart: "fluentd"
+          token: "${{ github.token }}"
+          value-files: "./kubernetes/fluentd_values.yaml"
+          repo: "https://fluent.github.io/helm-charts"
+
+      - name: "Kibana"
+        uses: "deliverybot/helm3@v1"
+        with:
+          release: "kibana"
+          namespace: "default"
+          chart: "kibana"
+          token: "${{ github.token }}"
+          value-files: "./kubernetes/kibana_values.yaml"
+          repo: "https://helm.elastic.co"

@@ -20,3 +20,10 @@ spec:
                 name: taschenka-api-service
                 port:
                   number: 80
+          - path: /kibana
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: kibana
+                port:
+                  number: 5601

@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: taschenka-api
-          image: melidon/taschenka_api:v0.2.0
+          image: melidon/taschenka_api:v0.2.6
           imagePullPolicy: Always
           resources:
             limits:

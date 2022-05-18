@@ -11,11 +11,11 @@ minikube addons enable storage-provisioner
 
 # TODO: Elasticsearch password
 
-# helm upgrade --debug --install elasticsearch elasticsearch --repo https://helm.elastic.co --values ./kubernetes/elasticsearch_values.yaml --wait --timeout=1200s
+helm upgrade --debug --install elasticsearch elasticsearch --repo https://helm.elastic.co --values ./kubernetes/elasticsearch_values.yaml
 
-# helm upgrade --debug --install fluentd fluentd --repo https://fluent.github.io/helm-charts --values ./kubernetes/fluentd_values.yaml --wait
+helm upgrade --debug --install fluentd fluentd --repo https://fluent.github.io/helm-charts --values ./kubernetes/fluentd_values.yaml
 
-# helm upgrade --debug --install kibana kibana --repo https://helm.elastic.co --values ./kubernetes/kibana_values.yaml --wait
+helm upgrade --debug --install kibana kibana --repo https://helm.elastic.co --values ./kubernetes/kibana_values.yaml
 
 # Taschenka
 

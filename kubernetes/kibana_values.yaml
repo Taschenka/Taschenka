@@ -7,15 +7,4 @@ extraEnvs:
 
 healthCheckPath: "/kibana/app/kibana"
 
-ingress:
-  enabled: true
-  className: "nginx"
-  pathtype: ImplementationSpecific
-  annotations: {}
-  # kubernetes.io/ingress.class: nginx
-  # kubernetes.io/tls-acme: "true"
-  hosts:
-    - paths:
-        - path: /kibana
-
 fullnameOverride: "kibana"

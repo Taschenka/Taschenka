@@ -56,7 +56,7 @@ jobs:
           gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE --project $PROJECT_ID
 
       - name: "Elasticsearch"
-        uses: "deliverybot/helm3@v1"
+        uses: "deliverybot/helm@v1"
         with:
           release: "elasticsearch"
           namespace: "default"
@@ -66,7 +66,7 @@ jobs:
           repo: "https://helm.elastic.co"
 
       - name: "Fluentd"
-        uses: "deliverybot/helm3@v1"
+        uses: "deliverybot/helm@v1"
         with:
           release: "fluentd"
           namespace: "default"
@@ -76,7 +76,7 @@ jobs:
           repo: "https://fluent.github.io/helm-charts"
 
       - name: "Kibana"
-        uses: "deliverybot/helm3@v1"
+        uses: "deliverybot/helm@v1"
         with:
           release: "kibana"
           namespace: "default"
